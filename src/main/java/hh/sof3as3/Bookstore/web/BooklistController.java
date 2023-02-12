@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import hh.sof3as3.Bookstore.domain.Book;
 import hh.sof3as3.Bookstore.domain.BookRepository;
@@ -26,11 +25,19 @@ public class BooklistController {
 	@GetMapping("delete/{id}")
 	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 		repository.deleteById(bookId);
-		return "redirect:../booklist";
+		return "redirect:../booklist"; //booklist.html
 	}
 	
+	//Editing a book
+	@GetMapping("edit/{id}")
+	public String editBook(@PathVariable("id") Long bookId, Model model) {
+		model.addAttribute("book", repository.findById(bookId));
+		return "/editbook"; //editbook.html
+	}
+	
+	
 	//Adding a book
-	@RequestMapping(value = "/add")
+	@GetMapping("/add")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
 		return "addbook"; //addbook.html
