@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.sof3as3.Bookstore.domain.Book;
 import hh.sof3as3.Bookstore.domain.BookRepository;
+import hh.sof3as3.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BooklistController {
 	@Autowired
 	private BookRepository repository;
+	@Autowired
+	private CategoryRepository crepository;
 	
 	@GetMapping("/booklist")
 	public String bookList(Model model) {
@@ -40,6 +43,7 @@ public class BooklistController {
 	@GetMapping("/addbook")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", crepository.findAll());
 		return "addbook"; //addbook.html
 	}
 	

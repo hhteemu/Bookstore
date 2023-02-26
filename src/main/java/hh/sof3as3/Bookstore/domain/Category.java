@@ -14,7 +14,7 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long categoryId; //Automatically generated id
+	public Long categoryId; //Automatically generated id
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
