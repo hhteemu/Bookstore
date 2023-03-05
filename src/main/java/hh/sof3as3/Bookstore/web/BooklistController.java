@@ -1,11 +1,15 @@
 package hh.sof3as3.Bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.sof3as3.Bookstore.domain.Book;
 import hh.sof3as3.Bookstore.domain.BookRepository;
@@ -22,6 +26,18 @@ public class BooklistController {
 	public String bookList(Model model) {
 		model.addAttribute("books", repository.findAll());
 		return "booklist"; //booklist.html
+	}
+	
+	//REST service that gets all books
+	@GetMapping("/books")
+	public @ResponseBody List<Book> bookListRest(){
+		return (List<Book>) repository.findAll();
+	}
+	
+	//REST service that returns one book by id
+	@GetMapping("/books/{id}")
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId){
+		return repository.findById(bookId);
 	}
 	
 	//Deleting a book from a database
