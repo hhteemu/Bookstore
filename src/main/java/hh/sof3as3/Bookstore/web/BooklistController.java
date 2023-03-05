@@ -28,13 +28,13 @@ public class BooklistController {
 		return "booklist"; //booklist.html
 	}
 	
-	//REST service that gets all books
+	//RESTful service that gets all books
 	@GetMapping("/books")
 	public @ResponseBody List<Book> bookListRest(){
 		return (List<Book>) repository.findAll();
 	}
 	
-	//REST service that returns one book by id
+	//RESTful service that returns one book by id
 	@GetMapping("/books/{id}")
 	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId){
 		return repository.findById(bookId);
